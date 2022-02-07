@@ -1,0 +1,29 @@
+class Solution {
+    public int[] findDiagonalOrder(int[][] mat) {
+        
+        TreeMap<Integer, ArrayList<Integer>> map = new TreeMap<>();
+        
+        int rows = mat.length;
+        int cols = mat[0].length;
+        
+        for(int i=0;i<rows;i++) {
+            for(int j=0;j<cols;j++) {
+                if(!map.containsKey(i+j)) {
+                    map.put(i+j, new ArrayList<Integer>());
+                }
+                map.get(i+j).add(mat[i][j]);
+            }
+        }
+        
+        int[] result = new int[rows*cols];
+        int idx = 0;
+        for(int i : map.keySet()) {
+            ArrayList<Integer> list = map.get(i);
+            if(i%2 == 0) {
+                Collections.reverse(list);
+            } 
+            for(int number:list) result[idx++] = number;
+        }
+        return result;
+    }
+}
